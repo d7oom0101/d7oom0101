@@ -41,4 +41,4 @@ export default function corrosion(ctx) {
   D.shots([[0, v3(60, 70, 110), v3(0, 8, 0)], [s('gf3') - 0.3, v3(50, 60, 100), v3(0, 8, 0)], [s('gf3'), v3(10, 225, 260), v3(10, 210, 0)], [ctx.duration, v3(10, 225, 250), v3(10, 210, 0)]]);
   return { scene: D.scene, camera: D.camera, update: t => D.update(t) };
 }
-corrosion.sfx = ({ cue }) => ['gf3', 'gf4', 'gf5', 'gf6'].map(id => ({ t: cue(id), name: 'pop', gain: 0.22 }));
+corrosion.sfx = ({ cue }) => [...['gf3', 'gf4', 'gf5', 'gf6'].map(id => ({ t: cue(id), name: 'pop', gain: 0.2 })), ...[0, 1.7, 3.1].map(d => ({ t: cue('gf2') + 2.4 + d, name: 'drip', gain: 0.3 }))];

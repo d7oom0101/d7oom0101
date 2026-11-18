@@ -49,4 +49,4 @@ export default function vc(ctx) {
   D.shots([[0, v3(50, 70, 110), v3(5, 10, 0)], [s('vc2') + 1.2, v3(35, 55, 70), v3(8, 11, 0)], [s('vc4'), v3(30, 60, 75), v3(8, 11, 0)], [s('vc5') - 0.2, v3(30, 60, 75), v3(8, 11, 0)], [s('vc5'), v3(0, 120, 230), v3(0, 10, 0)], [ctx.duration, v3(0, 115, 220), v3(0, 10, 0)]]);
   return { scene: D.scene, camera: D.camera, update: t => D.update(t) };
 }
-vc.sfx = ({ cue }) => [{ t: cue('vc2') + 1.6, name: 'slide', gain: 0.2, dur: 2.6 }, { t: cue('vc3') + 0.3, name: 'knock', gain: 0.4 }];
+vc.sfx = ({ cue }) => [{ t: cue('vc2') + 1.6, name: 'slide', gain: 0.2, dur: 2.6 }, { t: cue('vc3') + 0.3, name: 'creak', gain: 0.45 }, { t: cue('vc3') + 0.4, name: 'rattle', gain: 0.2, dur: 1.5 }];

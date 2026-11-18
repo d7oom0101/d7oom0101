@@ -23,6 +23,10 @@ SFX = {
     "rivet":         ("hand pop rivet gun squeezing then the rivet mandrel snapping" + CLEAN, 1.4),
     "drop":          ("small steel bolt dropped onto a steel workbench, bounces twice" + CLEAN, 1.2),
     "tick":          ("short soft electronic sensor beep" + CLEAN, 0.5),
+    "wrong":         ("soft low two-note error tone for a training video, gentle, not harsh, short" + CLEAN, 0.8),
+    "right":         ("soft pleasant two-note confirmation chime for a training video, short" + CLEAN, 0.8),
+    "drip":          ("single water droplet falling onto a metal plate, small splash" + CLEAN, 0.8),
+    "creak":         ("tight steel bolt slowly turning loose, short metallic creak and grind" + CLEAN, 1.2),
     "line_ambience": ("bottle filling production line ambience, conveyor belt running, plastic bottles gently clattering, steady machine hum, no voices, no music", 20.0),
     "factory_bed":   ("quiet industrial maintenance workshop room tone, distant machinery hum, very soft and steady, no voices, no music", 20.0),
 }

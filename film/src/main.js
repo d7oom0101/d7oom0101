@@ -46,7 +46,10 @@ window.__sfx = () => {
   const out = [];
   for (const sc of timeline.scenes) {
     const mod = REGISTRY[sc.id];
-    if (mod && mod.sfx) for (const e of mod.sfx({ cue: cueFn(sc), duration: sc.duration })) out.push({ ...e, t: +(sc.start + e.t).toFixed(3) });
+    const own = mod && mod.sfx ? mod.sfx({ cue: cueFn(sc), duration: sc.duration }) : [];
+    for (const e of own) out.push({ ...e, t: +(sc.start + e.t).toFixed(3) });
+    // soft whoosh on every scene change (unless the scene already opens with a sound)
+    if (sc.start > 0 && !own.some(e => e.t < 0.4 && e.name !== 'line_ambience')) out.push({ t: +Math.max(0, sc.start - 0.25).toFixed(3), name: 'whoosh', gain: 0.12 });
   }
   return out;
 };

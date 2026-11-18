@@ -84,7 +84,7 @@ def looped(a, n, xf=int(0.5 * SR)):
     return out[:n]
 def make(name, dur):
     a = sample(name)
-    if a is None: return FX[name](dur=dur)
+    if a is None: return FX.get(name, FX['pop'])(dur=dur)
     if name in LOOPS or name in ("slide", "thread"):
         n = int(max(0.2, dur) * SR)
         a = looped(a, n) if len(a) < n else a[:n].copy()

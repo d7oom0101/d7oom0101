@@ -65,4 +65,4 @@ export default function finale(ctx) {
   ]);
   return { scene: D.scene, camera: D.camera, update: t => D.update(t) };
 }
-finale.sfx = ({ cue, duration }) => [{ t: 0, name: 'line_ambience', gain: 0.4, dur: cue('f6') }, { t: cue('f3') + 0.6, name: 'pop', gain: 0.25 }, { t: cue('f4') + 0.2, name: 'knock', gain: 0.4 }, { t: cue('f6') + 0.6, name: 'chime', gain: 0.3 }];
+finale.sfx = ({ cue, duration }) => [{ t: cue('f4') - 0.3, name: 'creak', gain: 0.4 }, { t: cue('f4'), name: 'rattle', gain: 0.25, dur: 2.5 }, { t: 0, name: 'line_ambience', gain: 0.4, dur: cue('f6') }, { t: cue('f3') + 0.6, name: 'pop', gain: 0.25 }, { t: cue('f4') + 0.2, name: 'knock', gain: 0.4 }, { t: cue('f6') + 0.6, name: 'chime', gain: 0.3 }];

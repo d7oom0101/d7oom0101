@@ -48,4 +48,4 @@ export default function defects2(ctx) {
   });
   return R;
 }
-defects2.sfx = ({ cue }) => ['d8', 'd9', 'd10', 'd11'].map(id => ({ t: cue(id) + 1.0, name: 'pop', gain: 0.22 }));
+defects2.sfx = ({ cue }) => [...[0, 1, 2].map(j => ({ t: cue('d8') + 1.0 + j * 0.3, name: 'wrong', gain: 0.25 })), { t: cue('d8') + 1.9, name: 'right', gain: 0.3 }, ...['d9', 'd10'].flatMap(id => [{ t: cue(id) + 1.0, name: 'wrong', gain: 0.3 }, { t: cue(id) + 1.3, name: 'right', gain: 0.3 }]), { t: cue('d9') + 0.4, name: 'rattle', gain: 0.3, dur: 2.5 }, { t: cue('d11') + 0.5, name: 'creak', gain: 0.35 }, ...[0, 1, 2].map(j => ({ t: cue('d11') + 2.5 + j * 0.3, name: 'wrong', gain: 0.25 }))];
