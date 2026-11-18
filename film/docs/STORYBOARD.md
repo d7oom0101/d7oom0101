@@ -1,7 +1,7 @@
 # Storyboard: slide → scene map (full film)
 
 Target length: about 28 minutes, under the 30-minute cap. The slide order is kept. Colour key: P&G blues on white. **Orange (#FF7A00)** marks only the part the narrator is talking about at that moment.
-Status: ✅ = in the preview · ⏳ = after preview approval
+Status: ✅ = built and rendered in the full film
 
 | # | Scene | Slides | Main visual (3D / cross-section) | Opening line (examples) | Est. |
 |---|---|---|---|---|---|
@@ -52,4 +52,6 @@ Status: ✅ = in the preview · ⏳ = after preview approval
 | 33 | The "منع الربط الضعيف…" bullet stops mid-sentence ("…نتيجة الاهتزازات كما"). |
 | 34 | The table gives two torques per size (K = 0.15 and K = 0.20, the friction/lubrication factor). The deck does not say which one applies in the plant. The film will show both and point to the approved standard. |
 | 35 | The pie chart values are 1.4 / 2.3 / 2.9 / 1.0 with no unit, and they don't add up to 100. The film will show them as relative shares unless you give the percentages. |
-| 61–62 | Slide 61 is a photo collage with no title or text. Slide 62 is empty. |
+| 30 | The slide says internal rings are *expanded* and external rings *compressed* to install. The usual practice is the reverse: internal rings are compressed and external rings expanded. The film only says "internal and external, each with its own pliers". Please confirm. |
+| 22 | Which mark (two lines, or line + dot) belongs to class 5 and which to class 8 can't be read from the slide. The film shows both marks without linking them to a class. |
+| 61–62 | Slide 61 is a photo collage with no title or text, so the film turns it into a "spot the defect" quiz using its photos. Slide 62 is empty. |

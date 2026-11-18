@@ -298,7 +298,7 @@ export default function caliper({ cue, duration }) {
     const tp = project(v3(-RC, 36, 0), camera);
     place(lblThread, tp.x - 300, tp.y - 90, opT); ldThread.set(tp.x, tp.y, tp.x - 170, tp.y - 90, opT);
     place(take, 960, 960, win(t, C5be + 0.2, C6 - 0.3), lerp(0.95, 1, seg(t, C5be + 0.2, C5be + 0.7)));
-    place(conv, 1420, 300, win(t, C7, C8 - 0.4), lerp(0.92, 1, seg(t, C7, C7 + 0.4, easeBack)));
+    place(conv, 1430, 820, win(t, C7, C8 - 0.4), lerp(0.92, 1, seg(t, C7, C7 + 0.4, easeBack)));
     const hp = project(v3(260 - 32, 6, 6), camera), hq = project(v3(260, 6, 6), camera);
     place(xMark, hp.x, hp.y - 230, win(t, C9 + 0.1, C9 + 1.1, 0.2)); place(noForce, hp.x - 230, hp.y - 230, win(t, C9 + 0.1, C9 + 1.6, 0.2));
     place(okMark, hq.x, hq.y - 230, win(t, C9 + 2.6, 1e9, 0.2));
