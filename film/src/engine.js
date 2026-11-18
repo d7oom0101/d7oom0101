@@ -18,6 +18,7 @@ renderer.toneMappingExposure = 1.05;
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.setClearColor(0xffffff, 0);
+renderer.localClippingEnabled = true;
 const pmrem = new THREE.PMREMGenerator(renderer);
 export const envMap = pmrem.fromScene(new RoomEnvironment(), 0.03).texture;
 
@@ -45,6 +46,7 @@ export function paint(color, rough = 0.5) {
 }
 /** blend a material toward the tracking colour (k in 0..1) */
 export function trackify(mat, k) {
+  if (!mat || !mat.emissive) return;
   if (!mat.userData.base) mat.userData.base = { color: mat.color.clone(), emissive: mat.emissive.clone(), metal: mat.metalness };
   const b = mat.userData.base;
   mat.color.copy(b.color).lerp(new THREE.Color(COLORS.track), k * 0.85);
@@ -81,7 +83,7 @@ export function castAll(obj, cast = true, receive = false) {
 
 // ---------- geometry builders (units: mm) ----------
 /** External ISO-like 60° thread along +Y from y0 to y1. Returns BufferGeometry. */
-export function threadGeometry({ dMajor = 10, pitch = 1.5, y0 = 0, y1 = 30, seg = 96, perPitch = 24, chamferTip = true }) {
+export function threadGeometry({ dMajor = 10, pitch = 1.5, y0 = 0, y1 = 30, seg = 96, perPitch = 24, chamferTip = true, left = false }) {
   const rMaj = dMajor / 2, h = 0.5413 * pitch, rMin = rMaj - h;
   const rows = Math.ceil((y1 - y0) / pitch * perPitch);
   const pos = [], idx = [];
@@ -97,7 +99,7 @@ export function threadGeometry({ dMajor = 10, pitch = 1.5, y0 = 0, y1 = 30, seg 
     const y = y0 + (y1 - y0) * i / rows;
     for (let j = 0; j <= seg; j++) {
       const th = j / seg * Math.PI * 2;
-      let ph = ((y - y0) / pitch - th / (Math.PI * 2)) % 1; if (ph < 0) ph += 1;
+      let ph = ((y - y0) / pitch + (left ? 1 : -1) * th / (Math.PI * 2)) % 1; if (ph < 0) ph += 1;
       let r = rMin + h * prof(ph);
       if (chamferTip) r = Math.min(r, rMin - 0.15 + (y1 - y) * 1.0);
       r = Math.min(r, rMin + 0.15 + (y - y0) * 3); // thread run-in at the shank end
@@ -184,3 +186,10 @@ export const fadeEl = document.getElementById('fade');
 
 // small deterministic noise for shakes
 export function noise1(t, seed = 1) { return Math.sin(t * 13.1 + seed) * 0.5 + Math.sin(t * 29.7 + seed * 2.3) * 0.3 + Math.sin(t * 61.3 + seed * 4.1) * 0.2; }
+
+/** cut an object with a plane (cutaway). Clones materials; returns the plane. */
+export function cutaway(obj, normal = new THREE.Vector3(0, 0, -1), constant = 0, capColor = 0xF0A060) {
+  const plane = new THREE.Plane(normal, constant);
+  obj.traverse(o => { if (o.material) { o.material = o.material.clone(); o.material.clippingPlanes = [plane]; o.material.side = THREE.DoubleSide; o.material.clipShadows = true; } });
+  return plane;
+}

@@ -1,5 +1,6 @@
 // Slide 11 (metric, method 1 — vernier/digital caliper) + slide 8 (M10 hex head -> 17 mm spanner)
 import * as THREE from 'three';
+import * as K from '../kit.js';
 import {
   COLORS, steel, paint, trackify, studio, shadowFloor, castAll, hexBolt, canvasTex, redraw,
   el, svgEl, project, place, leader, seg, win, easeIO, easeOut, easeBack, smooth, lerp, lerpV, v3, clamp,
@@ -13,7 +14,7 @@ const OPEN = 30;           // caliper reading before closing
 const YM = 52;             // caliper beam bottom (world y) when measuring
 const YC = 30;             // height on the bolt where we show the diameters
 
-function buildCaliper() {
+export function buildCaliper() {
   const g = new THREE.Group();
   const st = steel(0xDCE2EA, 0.22, 0.95);
   const body = paint(0xE9EDF2, 0.45);
@@ -59,12 +60,12 @@ function buildCaliper() {
   castAll(g);
   return { g, slider, lcdTex };
 }
-function drawLCD(tex, reading) {
+export function drawLCD(tex, reading, unit = "mm", digits = 2) {
   redraw(tex, (c, w, h) => {
     c.fillStyle = '#C9D6C0'; c.fillRect(0, 0, w, h);
     c.fillStyle = '#16222A'; c.font = '700 168px PlexLatin'; c.textAlign = 'right'; c.textBaseline = 'alphabetic';
-    c.fillText(reading.toFixed(2), w - 130, 190);
-    c.font = '600 64px PlexLatin'; c.fillText('mm', w - 20, 190);
+    c.fillText(reading.toFixed(digits), w - 130, 190);
+    c.font = '600 64px PlexLatin'; c.fillText(unit, w - 20, 190);
   });
 }
 
@@ -156,6 +157,22 @@ export default function caliper({ cue, duration }) {
   const tClose = [C3 + 1.2, C3e - 0.05];       // jaws reach the crests as the narrator finishes "…القمم"
   const tContact = tClose[1];
   const tLift = [C5a - 0.2, C5a + 1.0];
+  const C6 = cue('c6'), C7 = cue('c7'), C8 = cue('c8'), C9 = cue('c9'), C9e = cue('c9', 'end');
+  const D2 = 9.398; // 3/8 in bolt measured as 0.37 in (slide 11)
+  const tDesc2 = [C6 - 0.3, C6 + 0.8], tClose2 = [C6 + 0.9, C6 + 2.6], tLift2 = [C8 - 0.6, C8 + 0.2];
+  // --- measuring gauge (method 2)
+  const gauge = new THREE.Group(); gauge.position.set(260, 0, 0); scene.add(gauge);
+  const GH = [[-64, 3.33, '1/4'], [-32, 4.12, '5/16'], [0, 4.91, '3/8'], [32, 5.71, '7/16'], [64, 6.5, '1/2']];
+  const gp = K.plate({ w: 170, dpt: 56, t: 4, holes: GH.map(([x, r]) => [x, 6, r]), mat: K.M.green() }); gauge.add(gp);
+  const gl = K.decal(170, (c, w, h) => { c.fillStyle = '#fff'; c.font = '700 22px PlexLatin'; c.textAlign = 'center'; GH.forEach(([x, , txt]) => c.fillText(txt + '"', w / 2 + x / 170 * w, h / 2 - 20 / 170 * h)); }, { metal: 0, rough: 0.6 });
+  gl.position.y = 4.65; gauge.add(gl);
+  const gBolt = K.displayBolt({ d: D2, L: 30, s: 14.3, k: 6 }); gauge.add(gBolt);
+  K.castShadows(gauge);
+  const xMark = el('big', '<div style="font:700 120px PlexLatin;color:#D93A3A">✗</div>');
+  const okMark = el('big', '<div style="font:700 120px PlexLatin;color:#1E9E5A">✓</div>');
+  const noForce = el('lbl', 'بدون غصب', { borderColor: '#D93A3A', color: '#D93A3A' });
+  const conv = el('card', `<table style="border-collapse:collapse;direction:ltr">${[['11/32', '0.34375'], ['3/8', '0.375'], ['13/32', '0.40625']].map((r, i) => `<tr style="${i === 1 ? 'background:#FFE8D2;outline:4px solid #FF7A00' : ''}"><td style="padding:8px 30px;font:700 46px PlexLatin;color:${i === 1 ? '#B54F00' : '#10213F'}">${r[0]}"</td><td style="padding:8px 30px;font:600 46px PlexLatin;color:#5C6E8A">${r[1]}</td></tr>`).join('')}</table>
+     <div style="font:600 34px Plex;color:#10213F;margin-top:12px"><span class="ltr" style="font-family:PlexLatin">0.37</span> ← نختار القيمة الأعلى مباشرة: <span class="ltr" style="font-family:PlexLatin;color:#B54F00">3/8"</span></div>`);
 
   let lastReading = -1;
   function update(t) {
@@ -164,25 +181,42 @@ export default function caliper({ cue, duration }) {
     bolt.rotation.y = -spin + seg(t, C5a, C5a + 1.6) * 0.0;
 
     // --- caliper position / reading
-    const desc = seg(t, ...tDescend);
-    const lift = seg(t, ...tLift, easeIO);
-    cal.g.position.set(-RC, YM + (1 - desc) * 90 + lift * 110, 0);
+    const phase2 = t >= C6 - 0.4;
+    const desc = phase2 ? seg(t, ...tDesc2) : seg(t, ...tDescend);
+    const lift = phase2 ? seg(t, ...tLift2, easeIO) : seg(t, ...tLift, easeIO);
+    const rc = phase2 ? D2 / 2 : RC;
+    cal.g.position.set(-rc, YM + (1 - desc) * 90 + lift * 110, 0);
     cal.g.visible = desc > 0.001 && lift < 0.999;
     let r = OPEN;
-    if (t >= tClose[0]) r = lerp(OPEN, D, easeOut((t - tClose[0]) / (tClose[1] - tClose[0])));
-    if (t >= tLift[0]) r = lerp(D, 24, seg(t, tLift[0], tLift[0] + 0.5));
+    if (!phase2) {
+      if (t >= tClose[0]) r = lerp(OPEN, D, easeOut((t - tClose[0]) / (tClose[1] - tClose[0])));
+      if (t >= tLift[0]) r = lerp(D, 24, seg(t, tLift[0], tLift[0] + 0.5));
+    } else {
+      r = lerp(24, D2, easeOut(clamp((t - tClose2[0]) / (tClose2[1] - tClose2[0]))));
+    }
     cal.slider.position.x = r;
-    const shown = Math.round(r * 100) / 100;
-    if (shown !== lastReading) { drawLCD(cal.lcdTex, shown); lastReading = shown; }
+    const shown = phase2 ? Math.round(r / 25.4 * 1000) / 1000 : Math.round(r * 100) / 100;
+    if (shown !== lastReading) { phase2 ? drawLCD(cal.lcdTex, shown, 'in', 3) : drawLCD(cal.lcdTex, shown); lastReading = shown; }
+    const sc2 = phase2 ? D2 / D : 1; bolt.scale.set(sc2, 1, sc2);
+    bolt.visible = t < C8 + 0.2;
+    // gauge: wrong hole first (no forcing), then the hole that fits
+    const gIn = seg(t, C8 - 0.3, C8 + 0.6, easeOut);
+    gauge.visible = t > C8 - 0.6;
+    let gx = -32, gy = 60 * (1 - gIn) + 12;
+    const shake = win(t, C9 - 0.1, C9 + 1.0, 0.1) * Math.sin(t * 60) * 0.8;
+    const move = seg(t, C9 + 1.0, C9 + 1.8, easeIO), drop = seg(t, C9 + 1.9, C9 + 2.6, easeOut);
+    gx = lerp(-32, 0, move) + shake; gy = lerp(gy, 12, 1) + (move > 0 && move < 1 ? Math.sin(move * Math.PI) * 14 : 0) - drop * 16;
+    if (t < C9 - 0.1) gy = 12 + 60 * (1 - gIn) + 6 * seg(t, C8 + 0.6, C8 + 1.3);
+    gBolt.position.set(gx, gy - 6, 6);
 
     // --- spanner slides onto the flats
-    const sIn = seg(t, C5b - 0.2, C5b + 1.3, easeOut);
+    const sIn = seg(t, C5b - 0.2, C5b + 1.3, easeOut) * (1 - seg(t, C6 - 0.8, C6 - 0.2, easeIO));
     sp.g.position.set(lerp(260, 0, sIn), 3.2, 0);
     sp.g.visible = sIn > 0.001;
 
     // --- tracking colour: thread while we measure, head when we talk about the spanner
     trackify(threadMat, 0.0);
-    trackify(headMat, win(t, C5a + 0.2, duration + 1, 0.5));
+    trackify(headMat, win(t, C5a + 0.2, C6 - 0.3, 0.5));
 
     // --- camera
     const shots = [
@@ -200,7 +234,15 @@ export default function caliper({ cue, duration }) {
       [C4c - 0.1, v3(60, 75, 300), v3(18, 36, 0)],             // c4c: whole bolt + M10 badge
       [C5a + 0.2, v3(60, 75, 300), v3(18, 36, 0)],
       [C5b - 0.3, v3(95, 120, 175), v3(20, 4, 0)],             // c5: head + spanner from above
-      [duration, v3(108, 130, 190), v3(26, 4, 0)],
+      [C6 - 0.4, v3(108, 130, 190), v3(26, 4, 0)],
+      [C6 + 0.6, v3(10, 42, 230), v3(4, 32, 0)],               // c6: inch bolt, caliper again
+      [tClose2[1], v3(0, 34, 128), v3(0, 31, 0)],
+      [C7 - 0.1, v3(30, 60, 175), v3(30, 52, 0)],
+      [C7 + 0.6, v3(-20, 60, 230), v3(10, 52, 0)],
+      [C8 - 0.4, v3(-20, 60, 230), v3(10, 52, 0)],
+      [C8 + 0.5, v3(260, 120, 190), v3(250, 8, 0)],            // c8: measuring gauge
+      [C9 + 0.8, v3(250, 95, 150), v3(250, 8, 0)],
+      [duration, v3(262, 90, 140), v3(260, 8, 0)],
     ];
     let i = 0; while (i < shots.length - 2 && t >= shots[i + 1][0]) i++;
     const [ta, pa, qa] = shots[i], [tb, pb, qb] = shots[i + 1];
@@ -248,14 +290,18 @@ export default function caliper({ cue, duration }) {
     ldBadge.set(bp.x, bp.y, bp.x - 190, bp.y - 50, opB);
 
     // --- head vs thread (c5)
-    const opH = seg(t, C5b + 1.0, C5b + 1.5);
+    const opH = seg(t, C5b + 1.0, C5b + 1.5) * (1 - seg(t, C6 - 0.7, C6 - 0.3));
     const h1 = project(v3(-2, 6.6, -8.5), camera), h2 = project(v3(-2, 6.6, 8.5), camera);
     dimSet(dimHead, h1, h2, 16, opH);
     place(lblHead, (h1.x + h2.x) / 2 - 330, (h1.y + h2.y) / 2 + 90, opH);
-    const opT = seg(t, C5a + 0.6, C5a + 1.1) * (1 - 0 * t);
+    const opT = seg(t, C5a + 0.6, C5a + 1.1) * (1 - seg(t, C6 - 0.7, C6 - 0.3));
     const tp = project(v3(-RC, 36, 0), camera);
     place(lblThread, tp.x - 300, tp.y - 90, opT); ldThread.set(tp.x, tp.y, tp.x - 170, tp.y - 90, opT);
-    place(take, 960, 960, seg(t, C5be + 0.2, C5be + 0.7), lerp(0.95, 1, seg(t, C5be + 0.2, C5be + 0.7)));
+    place(take, 960, 960, win(t, C5be + 0.2, C6 - 0.3), lerp(0.95, 1, seg(t, C5be + 0.2, C5be + 0.7)));
+    place(conv, 1420, 300, win(t, C7, C8 - 0.4), lerp(0.92, 1, seg(t, C7, C7 + 0.4, easeBack)));
+    const hp = project(v3(260 - 32, 6, 6), camera), hq = project(v3(260, 6, 6), camera);
+    place(xMark, hp.x, hp.y - 230, win(t, C9 + 0.1, C9 + 1.1, 0.2)); place(noForce, hp.x - 230, hp.y - 230, win(t, C9 + 0.1, C9 + 1.6, 0.2));
+    place(okMark, hq.x, hq.y - 230, win(t, C9 + 2.6, 1e9, 0.2));
 
     chip.style.opacity = 0.9; logo.style.opacity = 1;
   }
@@ -275,5 +321,7 @@ caliper.sfx = ({ cue }) => {
     { t: cue('c5a') - 0.2, name: 'whoosh', gain: 0.25 },
     { t: cue('c5b') + 1.25, name: 'clink', gain: 0.6 },
     { t: cue('c5b', 'end') + 0.2, name: 'pop', gain: 0.3 },
+    { t: cue('c6') + 0.9, name: 'slide', gain: 0.45, dur: 1.6 }, { t: cue('c6') + 2.6, name: 'contact', gain: 0.7 },
+    { t: cue('c7'), name: 'pop', gain: 0.3 }, { t: cue('c9'), name: 'knock', gain: 0.35 }, { t: cue('c9') + 2.5, name: 'contact', gain: 0.5 },
   ];
 };

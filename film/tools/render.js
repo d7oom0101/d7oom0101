@@ -28,7 +28,7 @@ const server = http.createServer((req, res) => {
   const page = await browser.newPage({ viewport: { width: 1920, height: 1080 }, deviceScaleFactor: 1 });
   page.on('console', m => { if (m.type() === 'error' || m.type() === 'warning') console.error('[page]', m.text()); });
   page.on('pageerror', e => { console.error('[pageerror]', e.message); process.exitCode = 1; });
-  await page.goto(`http://127.0.0.1:${port}/`);
+  await page.goto(`http://127.0.0.1:${port}/` + (args.debug ? `?debug=${args.debug}` : ''));
   await page.waitForFunction(() => window.__ready === true, null, { timeout: 120000 });
   const total = await page.evaluate(() => window.__timeline.duration);
   const sfx = await page.evaluate(() => window.__sfx());

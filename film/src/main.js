@@ -1,14 +1,15 @@
 // Film driver: loads the narration timeline, instantiates scenes, exposes a
 // deterministic seek(t) used by the frame renderer (tools/render.js).
 import { renderer, clearOverlay, fadeEl, smooth } from './engine.js';
-import coldopen from './scenes/coldopen.js';
-import title from './scenes/title.js';
-import caliper from './scenes/caliper.js';
 
-const REGISTRY = { coldopen, title, caliper };
+const REGISTRY = {};
 const FADE = 0.35; // white dip between scenes (s)
 
 const timeline = await (await fetch('/build/timeline.json')).json();
+for (const sc of timeline.scenes) {
+  try { REGISTRY[sc.id] = (await import(`./scenes/${sc.id}.js`)).default; }
+  catch (e) { console.warn('placeholder for', sc.id); REGISTRY[sc.id] = (await import('./scenes/_placeholder.js')).default(sc.id); }
+}
 await document.fonts.load('600 40px Plex'); await document.fonts.load('700 40px PlexLatin');
 await document.fonts.ready;
 
@@ -49,4 +50,10 @@ window.__sfx = () => {
   }
   return out;
 };
+const dbg = new URLSearchParams(location.search).get('debug');
+if (dbg) {
+  const mod = (await import(`./scenes/${dbg}.js`)).default;
+  const inst = mod({ cue: (id, w) => (w === 'end' ? 1.5 : 0.5), duration: 10, slides: [] });
+  window.__seek = (t) => { inst.update(t); renderer.render(inst.scene, inst.camera); fadeEl.style.opacity = 0; return true; };
+}
 window.__ready = true;
