@@ -68,4 +68,4 @@ export default function lockwashers(ctx) {
   ]);
   return { scene: D.scene, camera: D.camera, update: t => D.update(t) };
 }
-lockwashers.sfx = ({ cue }) => [{ t: cue('lw2') + 0.2, name: 'slide', gain: 0.3, dur: 1.8 }, { t: cue('lw2') + 2.0, name: 'contact', gain: 0.4 }, { t: cue('lw4') + 2.6, name: 'clink', gain: 0.4 }, { t: cue('lw5') + 1.7, name: 'clink', gain: 0.45 }];
+lockwashers.sfx = ({ cue }) => [{ t: cue('lw2') + 0.2, name: 'thread', gain: 0.3, dur: 1.8 }, { t: cue('lw2') + 2.0, name: 'contact', gain: 0.4 }, { t: cue('lw4') + 2.6, name: 'clink', gain: 0.4 }, { t: cue('lw5') + 1.7, name: 'clink', gain: 0.45 }];

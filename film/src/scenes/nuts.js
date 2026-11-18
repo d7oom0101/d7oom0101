@@ -64,4 +64,4 @@ export default function nuts(ctx) {
   ]);
   return { scene: D.scene, camera: D.camera, update: t => D.update(t) };
 }
-nuts.sfx = ({ cue }) => [{ t: cue('n2') + 1.6, name: 'contact', gain: 0.4 }, { t: cue('n3') + 0.3, name: 'slide', gain: 0.3, dur: 2.5 }, { t: cue('n4') + 0.4, name: 'pop', gain: 0.25 }, { t: cue('n5') + 3.5, name: 'pop', gain: 0.25 }];
+nuts.sfx = ({ cue }) => [{ t: cue('n2') + 1.6, name: 'contact', gain: 0.4 }, { t: cue('n3') + 0.3, name: 'thread', gain: 0.3, dur: 2.5 }, { t: cue('n4') + 0.4, name: 'pop', gain: 0.25 }, { t: cue('n5') + 3.5, name: 'pop', gain: 0.25 }];

@@ -49,4 +49,4 @@ export default function torquewrench(ctx) {
   ]);
   return { scene: D.scene, camera: D.camera, update: t => D.update(t) };
 }
-torquewrench.sfx = ({ cue }) => [{ t: cue('tw2') + 1.2, name: 'slide', gain: 0.25, dur: 1.8 }, { t: cue('tw3') + 2.2, name: 'slide', gain: 0.22, dur: cue('tw3', 'end') - 0.9 - cue('tw3') - 2.2 }, { t: cue('tw3', 'end') - 0.9, name: 'torque_click', gain: 0.9 }];
+torquewrench.sfx = ({ cue }) => [{ t: cue('tw3') + 1.1, name: 'clink', gain: 0.45 }, { t: cue('tw2') + 1.2, name: 'slide', gain: 0.25, dur: 1.8 }, { t: cue('tw3') + 2.2, name: 'slide', gain: 0.22, dur: cue('tw3', 'end') - 0.9 - cue('tw3') - 2.2 }, { t: cue('tw3', 'end') - 0.9, name: 'torque_click', gain: 0.9 }];

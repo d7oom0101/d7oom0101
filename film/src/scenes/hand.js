@@ -64,4 +64,4 @@ export default function hand(ctx) {
   ]);
   return { scene: D.scene, camera: D.camera, update: t => D.update(t) };
 }
-hand.sfx = ({ cue }) => [{ t: cue('th1') + 0.4, name: 'slide', gain: 0.3, dur: 2 }, { t: cue('th3') + 0.8, name: 'slide', gain: 0.3, dur: 2 }, { t: cue('th4') + 0.5, name: 'slide', gain: 0.3, dur: 2 }];
+hand.sfx = ({ cue }) => [{ t: cue('th1') + 0.4, name: 'thread', gain: 0.3, dur: 2 }, { t: cue('th3') + 0.8, name: 'thread', gain: 0.3, dur: 2 }, { t: cue('th4') + 0.5, name: 'thread', gain: 0.3, dur: 2 }];

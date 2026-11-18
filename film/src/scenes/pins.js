@@ -52,4 +52,4 @@ export default function pins(ctx) {
   ]);
   return { scene: D.scene, camera: D.camera, update: t => D.update(t) };
 }
-pins.sfx = ({ cue }) => [...['pr2', 'pr3', 'pr4', 'pr5', 'pr6'].map(id => ({ t: cue(id), name: 'pop', gain: 0.2 })), { t: cue('pr8') + 0.6, name: 'slide', gain: 0.35, dur: 1.6 }, { t: cue('pr8', 'end') - 0.5, name: 'knock', gain: 0.45 }];
+pins.sfx = ({ cue }) => [...['pr2', 'pr3', 'pr4', 'pr5', 'pr6'].map(id => ({ t: cue(id), name: 'pop', gain: 0.2 })), { t: cue('pr8') + 0.6, name: 'slide', gain: 0.35, dur: 1.6 }, { t: cue('pr8', 'end') - 0.5, name: 'rivet', gain: 0.5 }];

@@ -42,6 +42,8 @@ def tts(text, ls):
 
 def load_wav(p):
     import soundfile as sf
+    if not os.path.exists(p):   # fall back to the committed ElevenLabs narration (assets/vo_raed/<id>.mp3)
+        p = os.path.join(ROOT, "assets", "vo_raed", os.path.basename(p)[:-4] + ".mp3")
     a, sr = sf.read(p, dtype="float32")
     if a.ndim > 1: a = a.mean(1)
     return a, sr

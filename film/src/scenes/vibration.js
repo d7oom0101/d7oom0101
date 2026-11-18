@@ -29,4 +29,4 @@ export default function vibration(ctx) {
   D.shots([[0, v3(40, 30, 120), v3(0, 0, 0)], [s('vb3') - 0.3, v3(30, 20, 105), v3(0, 0, 0)], [s('vb3'), v3(0, 80, 190), v3(0, 8, 0)], [ctx.duration, v3(0, 80, 180), v3(0, 8, 0)]]);
   return { scene: D.scene, camera: D.camera, update: t => D.update(t) };
 }
-vibration.sfx = ({ cue }) => [{ t: cue('vb2'), name: 'line_ambience', gain: 0.4, dur: 6 }, { t: cue('vb3'), name: 'pop', gain: 0.25 }, { t: cue('vb4'), name: 'pop', gain: 0.25 }];
+vibration.sfx = ({ cue }) => [{ t: cue('vb2'), name: 'line_ambience', gain: 0.4, dur: 6 }, { t: cue('vb2') + 0.5, name: 'rattle', gain: 0.5, dur: 5 }, { t: cue('vb3'), name: 'pop', gain: 0.25 }, { t: cue('vb4'), name: 'pop', gain: 0.25 }];

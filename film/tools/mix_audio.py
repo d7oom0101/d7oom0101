@@ -62,6 +62,35 @@ def s_line_ambience(dur=10, **_):  # filling-line bed: low motor hum + belt hiss
 
 FX = {k[2:]: v for k, v in globals().items() if k.startswith("s_")}
 
+# recorded-style samples (tools/eleven_sfx.py) override the procedural sounds of the same name
+SFX_DIR = os.path.join(ROOT, "assets", "sfx")
+LOOPS = {"line_ambience": 0.10, "factory_bed": 0.05, "rattle": 0.22}   # target RMS for beds
+_cache = {}
+def sample(name):
+    if name not in _cache:
+        p = os.path.join(SFX_DIR, name + ".wav"); a = None
+        if os.path.exists(p):
+            a, sr = sf.read(p, dtype="float32")
+            if a.ndim > 1: a = a.mean(1)
+            if name in LOOPS: a = a * (LOOPS[name] / (np.sqrt(np.mean(a ** 2)) + 1e-9))
+            else: a = a * (0.55 / (np.abs(a).max() + 1e-9))
+        _cache[name] = a
+    return _cache[name]
+def looped(a, n, xf=int(0.5 * SR)):
+    out = a.copy()
+    while len(out) < n:
+        k = min(xf, len(a) // 4); r = np.linspace(0, 1, k)
+        out = np.concatenate([out[:-k], out[-k:] * (1 - r) + a[:k] * r, a[k:]])
+    return out[:n]
+def make(name, dur):
+    a = sample(name)
+    if a is None: return FX[name](dur=dur)
+    if name in LOOPS or name in ("slide", "thread"):
+        n = int(max(0.2, dur) * SR)
+        a = looped(a, n) if len(a) < n else a[:n].copy()
+        a *= env(len(a), 0.3 if name in LOOPS else 0.02, 0.8 if name in LOOPS else 0.15)
+    return a
+
 def master_voice(src, dst):
     # gentle clean-up chain: rumble cut, warmth, presence, de-ess, soft compression
     af = ("highpass=f=75,equalizer=f=170:t=q:w=1.0:g=1.8,equalizer=f=3200:t=q:w=1.2:g=2.2,"
@@ -78,8 +107,11 @@ if __name__ == "__main__":
     n = int(timeline["duration"] * SR) + SR
     v = np.pad(v, (0, max(0, n - len(v))))[:n]
     fx = np.zeros(n, dtype=np.float32)
-    for e in json.load(open(os.path.join(B, "sfx.json"))):
-        a = FX[e["name"]](dur=e.get("dur", 1.0)).astype(np.float32) * e.get("gain", 0.5)
+    events = json.load(open(os.path.join(B, "sfx.json")))
+    # a soft workshop bed under the whole film so the viewer stays "in the plant"
+    events.insert(0, {"t": 0, "name": "factory_bed", "gain": 1.0, "dur": timeline["duration"]})
+    for e in events:
+        a = make(e["name"], e.get("dur", 1.0)).astype(np.float32) * e.get("gain", 0.5)
         i = int(e["t"] * SR); a = a[: max(0, n - i)]; fx[i:i + len(a)] += a
     # duck effects a little under the voice
     venv = np.convolve(np.abs(v), np.ones(int(0.15 * SR)) / int(0.15 * SR), mode="same")

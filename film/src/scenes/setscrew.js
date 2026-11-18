@@ -84,4 +84,4 @@ export default function setscrew(ctx) {
   ]);
   return { scene: D.scene, camera: D.camera, update: t => D.update(t) };
 }
-setscrew.sfx = ({ cue }) => [{ t: cue('ss2') + 0.2, name: 'slide', gain: 0.3, dur: 1 }, { t: cue('ss2') + 1.2, name: 'contact', gain: 0.5 }, ...['ss5', 'ss6', 'ss7', 'ss8', 'ss9', 'ss10', 'ss11'].map(id => ({ t: cue(id), name: 'pop', gain: 0.2 }))];
+setscrew.sfx = ({ cue }) => [{ t: cue('ss2') + 0.2, name: 'thread', gain: 0.3, dur: 1 }, { t: cue('ss2') + 1.2, name: 'contact', gain: 0.5 }, ...['ss5', 'ss6', 'ss7', 'ss8', 'ss9', 'ss10', 'ss11'].map(id => ({ t: cue(id), name: 'pop', gain: 0.2 }))];

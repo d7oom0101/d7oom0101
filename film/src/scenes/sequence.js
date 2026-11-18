@@ -52,4 +52,4 @@ export default function sequence(ctx) {
   D.shots([[0, v3(0, 240, 260), v3(0, 0, 0)], [s('sq2'), v3(160, 120, 240), v3(0, 0, 0)], [s('sq3') - 0.2, v3(160, 120, 240), v3(0, 0, 0)], [s('sq3') + 0.4, v3(0, 330, 120), v3(0, 0, 0)], [ctx.duration, v3(0, 330, 110), v3(0, 0, 0)]]);
   return { scene: D.scene, camera: D.camera, update: t => D.update(t) };
 }
-sequence.sfx = ({ cue }) => [...Array.from({ length: 8 }, (_, i) => ({ t: cue('sq3') + 1.0 + i * (cue('sq3', 'end') - 1.2 - cue('sq3')) / 8, name: 'tick', gain: 0.25 }))];
+sequence.sfx = ({ cue }) => [...Array.from({ length: 8 }, (_, i) => ({ t: cue('sq3') + 1.0 + i * (cue('sq3', 'end') - 1.2 - cue('sq3')) / 8, name: 'ratchet', gain: 0.3 }))];

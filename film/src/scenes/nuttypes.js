@@ -42,4 +42,4 @@ export default function nuttypes(ctx) {
   ]);
   return { scene: D.scene, camera: D.camera, update: t => D.update(t) };
 }
-nuttypes.sfx = ({ cue }) => [{ t: cue('nt2') + 0.4, name: 'slide', gain: 0.25, dur: 1.5 }, { t: cue('nt4') + 2.0, name: 'clink', gain: 0.35 }, { t: cue('nt5') + 0.3, name: 'slide', gain: 0.3, dur: 2.5 }, { t: cue('nt6'), name: 'stamp', gain: 0.4 }];
+nuttypes.sfx = ({ cue }) => [{ t: cue('nt2') + 0.4, name: 'thread', gain: 0.25, dur: 1.5 }, { t: cue('nt4') + 2.0, name: 'clink', gain: 0.35 }, { t: cue('nt5') + 0.3, name: 'thread', gain: 0.3, dur: 2.5 }, { t: cue('nt6'), name: 'stamp', gain: 0.4 }];
