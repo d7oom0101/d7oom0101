@@ -1,0 +1,16 @@
+{
+  "name": "pg-fasteners-training-film",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Arabic animated industrial training film (Fasteners & Structures) rendered with three.js + headless Chromium + ffmpeg",
+  "scripts": {
+    "audio": "python3 tools/build_audio.py",
+    "render": "node tools/render.js",
+    "mix": "python3 tools/mix_audio.py",
+    "mux": "bash tools/mux.sh"
+  },
+  "dependencies": {
+    "three": "0.170.0",
+    "@fontsource/ibm-plex-sans-arabic": "5.1.0"
+  }
+}
