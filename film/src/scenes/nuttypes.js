@@ -9,7 +9,7 @@ export default function nuttypes(ctx) {
   const s = D.s, e = D.e;
   D.header('أنواع الصواميل', 'Types of nuts');
   D.chip([23, 24]);
-  const defs = [['nt1', K.hexNut({ d: 10, s: 17, m: 9 }), 'سداسية', 'Hexagonal'], ['nt2', K.wingNut({ d: 9 }), 'مجنّحة', 'Wing'], ['nt3', K.flangeNut({ d: 10, s: 15, m: 10 }), 'أم شفة', 'Flange'], ['nt4', K.slottedNut({ d: 10, s: 17, m: 12 }), 'مقطوعة', 'Slotted']];
+  const defs = [['nt1', K.hexNut({ d: 10, s: 17, m: 9 }), 'سداسية', 'Hexagonal'], ['nt2', K.wingNut({ d: 9 }), 'مجنّحة', 'Wing'], ['nt3', K.flangeNut({ d: 10, s: 15, m: 10 }), 'ذات شفة', 'Flange'], ['nt4', K.slottedNut({ d: 10, s: 17, m: 12 }), 'مشقوقة', 'Slotted']];
   const items = defs.map(([cue, o, ar, en], i) => {
     o.position.x = 66 - i * 44; castAll(o); D.add(o);
     const ms = []; o.traverse(m => { if (m.material && !m.material.transparent) { m.material = m.material.clone(); ms.push(m.material); } });
@@ -23,7 +23,7 @@ export default function nuttypes(ctx) {
   const ny = K.nylockNut({ d: 12, s: 19, m: 14 }); D.add(ny); cutaway(ny, new THREE.Vector3(0, 0, -1), 0);
   const nyMat = ny.userData.nylon || null; let nylonMat = null; ny.traverse(o => { if (o.material && o.material.color && o.material.color.getHex() === 0x2b6fd6) nylonMat = o.material; });
   const rod = new THREE.Mesh(threadGeometry({ dMajor: 12, pitch: 1.75, y0: -40, y1: 30 }), K.M.zinc()); D.add(rod); castAll(ny); rod.castShadow = true;
-  D.label('حلقة نايلون تخنق سن البرغي', v3(-6, 12, 0), [-300, -150], s('nt5') + 1.2, s('nt6') - 0.2, { track: true });
+  D.label('حلقة نايلون تضغط على سنّ البرغي', v3(-6, 12, 0), [-300, -150], s('nt5') + 1.2, s('nt6') - 0.2, { track: true });
   const once = D.card('<div style="display:flex;align-items:center;gap:26px"><div style="font:700 110px PlexLatin;color:#D93A3A;direction:ltr">1×</div><div style="font:700 44px Plex;color:#10213F">تُستخدم مرة واحدة فقط</div></div>', 1380, 300, s('nt6'), 1e9);
   D.on(t => {
     const show = t < s('nt5') - 0.3;

@@ -20,7 +20,7 @@ export default function torquewrench(ctx) {
   D.label('اللقمة على الرأس', [tw, v3(0, -22, 0)], [-220, 120], s('tw3') + 0.6, s('tw3') + 2.6, { track: true });
   const click = el('big', '<div style="font:800 110px PlexLatin;color:#FF7A00;letter-spacing:2px">CLICK</div>');
   const stop = el('card', '<div style="font:700 48px Plex;color:#10213F">هنا توقّف ✋</div>');
-  const donts = [['تعامل معه بحذر: قد يفقد معايرته', s('tw4')], ['لا تستخدمه بدل مفتاح أبو تي', s('tw4') + 2.6], ['لا تفك به أي برغي: للشد فقط', s('tw5')], ['لا تدعه يسقط على الأرض', s('tw5') + 2.3]];
+  const donts = [['تعامل معه بحذر: قد يفقد معايرته', s('tw4')], ['لا تستخدمه بديلًا عن مفتاح حرف T', s('tw4') + 2.6], ['لا تفك به أي برغي: للشد فقط', s('tw5')], ['لا تدعه يسقط على الأرض', s('tw5') + 2.3]];
   donts.forEach(([txt, t0], i) => D.card(`<div style="font:600 34px Plex;color:#10213F"><span style="color:#D93A3A">✗</span> ${txt}</div>`, 1440, 300 + i * 105, t0, 1e9, 'card', { padding: '16px 30px' }));
   // pull timing: the click is the end of the "سحب" motion, synced with the narrator's "النقرة"
   const tPull0 = s('tw3') + 2.2, tClick = e('tw3') - 0.9;

@@ -118,7 +118,7 @@ export default function coldopen({ cue, duration }) {
 
   // --- timing
   const O1 = cue('o1'), O2 = cue('o2'), O3 = cue('o3'), O4 = cue('o4'), O4e = cue('o4', 'end');
-  const TM = O2 + 1.05;               // the missed bottle crosses the beam ("…عدّت")
+  const TM = O2 + 1.05;               // the missed bottle crosses the beam ("…عبرت")
   const PERIOD = SPACING / V;
   const TSLIP = TM - PERIOD * 0.55;   // the bracket slips just before it
   const bottleX = (i, t) => BEAM_X + (t - (TM + i * PERIOD)) * V;

@@ -33,7 +33,7 @@ export default function finale(ctx) {
   const bottles = []; for (let i = 0; i < 8; i++) { const b = new THREE.Group(); const body = new THREE.Mesh(new THREE.CylinderGeometry(38, 38, 175, 40), paint(0xF4F6F9, 0.38)); body.position.y = 87; b.add(body); const cap = new THREE.Mesh(new THREE.CylinderGeometry(15, 15, 20, 32), paint(0x003DA5, 0.35)); cap.position.y = 200; b.add(cap); D.add(b); bottles.push(b); castAll(b); }
   const TILT = -4 * Math.PI / 180;
   D.label('علامة التحكّم المرئي', v3(PIVOT.x + 6, PIVOT.y + 12, PIVOT.z), [260, -180], s('f2') + 0.6, s('f4') - 0.2, { track: true });
-  const end = D.card('<div style="font:700 64px Plex;color:#003DA5">افحص • علّم • اشدّ بالعزم الصحيح</div>', 960, 540, s('f6') + 0.3, 1e9, 'card', { padding: '40px 70px' });
+  const end = D.card('<div style="font:700 64px Plex;color:#003DA5">افحص • علّم • اشدد بالعزم الصحيح</div>', 960, 540, s('f6') + 0.3, 1e9, 'card', { padding: '40px 70px' });
   const logo = el('big', '<img src="/assets/pg_logo_circle.png" style="width:150px;height:150px">');
   const rewind = el('big', '<div style="font:700 64px PlexLatin;color:#003DA5">⏪</div>');
   D.on(t => {

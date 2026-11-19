@@ -13,7 +13,7 @@ function head(spec, mat) {
 export default function stdclasses(ctx) {
   const D = stage(ctx, { target: v3(0, 5, 0), size: 160 });
   const s = D.s, e = D.e;
-  D.header('صلابة البراغي القياسية والستانلس', 'Standard (inch) & stainless bolt markings');
+  D.header('صلابة البراغي الإنشية والفولاذ المقاوم للصدأ', 'Standard (inch) & stainless bolt markings');
   D.chip([16, 17]);
   const strip = [[null, '1-2'], [{ lines: 3 }, '5'], [{ lines: 5 }, '7'], [{ lines: 6 }, '8']].map(([sp, cls], i) => {
     const h = head(sp); h.position.x = 45 - i * 30; D.add(h);
@@ -28,11 +28,11 @@ export default function stdclasses(ctx) {
   const ans = el('card', '<div style="font:700 80px Plex;color:#B54F00">3 خطوط = الفئة <span style="font-family:PlexLatin">5</span></div><div style="font:600 34px Plex;color:#1E9E5A">✓ مقبول (الحد الأدنى)</div>');
   // Allen unmarked = class 9
   const sock = K.socketScrew({ d: 12, L: 26 }); sock.position.set(0, 0, 0); D.add(sock); castAll(sock); sock.visible = false;
-  D.label('بدون علامات = قياسي فئة <span style="font-family:PlexLatin">9</span>', [sock, v3(0, 38, 0)], [220, -120], s('s5') + 2.4, s('s6') - 0.2, { track: true });
+  D.label('دون علامات = إنشي فئة <span style="font-family:PlexLatin">9</span>', [sock, v3(0, 38, 0)], [220, -120], s('s5') + 2.4, s('s6') - 0.2, { track: true });
   // stainless
   const ss1 = head({ text: '316', sub: 'F593' }, K.M.stainless()); const ss2 = head({ text: 'A2-70', font: 90 }, K.M.stainless()); const ss3 = head({ text: 'A4-80', font: 90 }, K.M.stainless());
   [ss1, ss2, ss3].forEach((h, i) => { h.scale.setScalar(1.6); h.position.set(45 - i * 45, 0, 0); D.add(h); h.visible = false; });
-  D.label('قياسي: <span class="ltr" style="font-family:PlexLatin">304 / 316</span>', [ss1, v3(0, 7, 0)], [80, -150], s('s6') + 0.3, 1e9, { track: t => t < s('s7') });
+  D.label('إنشي: <span class="ltr" style="font-family:PlexLatin">304 / 316</span>', [ss1, v3(0, 7, 0)], [80, -150], s('s6') + 0.3, 1e9, { track: t => t < s('s7') });
   D.label('متري: <span class="ltr" style="font-family:PlexLatin">A2 / A4</span>', [ss2, v3(0, 7, 0)], [0, -170], s('s7') + 0.2, 1e9, { track: t => t > s('s7') });
   D.card('<div style="direction:rtl;font:600 34px Plex;color:#10213F"><span style="font-family:PlexLatin;color:#B54F00">A4</span> مقاومة تآكل أعلى &nbsp;•&nbsp; <span style="font-family:PlexLatin;color:#B54F00">70</span> = قوة شد <span style="font-family:PlexLatin">700 MPa</span></div>', 960, 900, s('s7') + 2.5, 1e9);
   D.on(t => {

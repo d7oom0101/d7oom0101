@@ -18,7 +18,7 @@ export default function critical(ctx) {
   const cb = K.socketScrew({ d: 6, L: 10 }); cb.rotation.x = Math.PI / 2; cb.position.set(0, 18, 7); cam.add(cb); castAll(camG);
   D.track(cb.userData.mat, s('cr2') + 1.4, e('cr2') + 0.2);
   D.label('برغي توقيت الكامة', [cb, v3(0, 12, 0)], [220, -150], s('cr2') + 1.4, e('cr2') + 0.2, { track: true });
-  const qs = ['هل المثبّت حاسم لنقطة العمل؟', 'لو فيه عيب، هل يسبّب توقّف؟', 'هل نحتاج فحص مستمر له؟'];
+  const qs = ['هل المثبّت حاسم لنقطة العمل؟', 'إذا حدث فيه عيب، فهل يسبّب توقّفًا؟', 'هل يحتاج إلى فحص مستمر؟'];
   qs.forEach((q, i) => D.card(`<div style="display:flex;align-items:center;gap:18px"><div style="width:56px;height:56px;border-radius:50%;background:#003DA5;color:#fff;font:700 32px PlexLatin;display:flex;align-items:center;justify-content:center">${i + 1}</div><div style="font:600 36px Plex">${q}</div></div>`, 1420, 300 + i * 115, s('cr' + (i + 2)), s('cr5') - 0.2, 'card', { padding: '16px 30px' }));
   // feed jam (cr3): bottles bunched on a short conveyor
   const feed = new THREE.Group(); feed.position.set(0, 0, 260); D.add(feed);

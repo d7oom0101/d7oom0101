@@ -18,7 +18,7 @@ function table(headers, rows, hi, cls = '') {
 export default function sizes(ctx) {
   const D = stage(ctx, { target: v3(0, 10, 0), size: 160 });
   const s = D.s, e = D.e;
-  D.header('مقاسات المسامير مع مفتاح الربط', 'Bolt size vs. spanner size', 0.2);
+  D.header('مقاسات البراغي مع مفتاح الربط', 'Bolt size vs. spanner size', 0.2);
   D.chip([8, 9]);
   // tables (screen cards on the right)
   D.card(table(['مقاس البرغي', 'مفتاح سداسي (مم)'], METRIC, -1), 1430, 560, s('z1'), s('z2') + 1.2);

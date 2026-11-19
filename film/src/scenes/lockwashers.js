@@ -16,7 +16,7 @@ export default function lockwashers(ctx) {
   const sc = K.socketScrew({ d: 10, L: 26 }); A.add(sc);
   castAll(A);
   D.track(sw.material, s('lw1') + 0.4, e('lw2'));
-  D.label('وشرة قفل مشقوقة (سبرنق)', [sw, v3(9, 2, 0)], [260, -120], s('lw1') + 0.8, e('lw2'), { track: true });
+  D.label('حلقة قفل مشقوقة (زنبركية)', [sw, v3(9, 2, 0)], [260, -120], s('lw1') + 0.8, e('lw2'), { track: true });
   D.card('<div style="font:600 34px Plex;color:#10213F">مقسّاة: أقوى من البراغي والصواميل</div>', 960, 820, s('lw2') + 1.6, e('lw2') + 0.2);
   D.card('<div style="display:flex;align-items:center;gap:22px"><div style="font:700 80px PlexLatin;color:#D93A3A;direction:ltr">1×</div><div style="font:700 38px Plex;color:#10213F">مرة واحدة فقط</div></div>', 960, 940, s('lw2') + 3.8, e('lw2') + 0.2);
   // tooth lock washer + slotted (lock) nut on a shaft with bearing

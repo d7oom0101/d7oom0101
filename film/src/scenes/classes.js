@@ -37,7 +37,7 @@ export default function classes(ctx) {
     <line class="yl" x1="60" y1="110" x2="200" y2="110" stroke="#FF7A00" stroke-width="3" stroke-dasharray="8 6"/><text class="yt" x="66" y="102" font-family="PlexLatin" font-weight="700" font-size="24" fill="#B54F00">320</text>
     <line class="tl" x1="60" y1="70" x2="330" y2="70" stroke="#003DA5" stroke-width="3" stroke-dasharray="8 6"/><text class="tt" x="66" y="62" font-family="PlexLatin" font-weight="700" font-size="24" fill="#003DA5">400</text>
     <text class="bx" x="428" y="130" font-family="PlexLatin" font-weight="700" font-size="34" fill="#D93A3A">✕</text></svg>`);
-  D.card('<div style="font:600 36px Plex;color:#10213F;max-width:1300px;white-space:normal">صلابة المسمار: مقاومته للتشوّه الدائم، والخدش، والانحناء، والاختراق… تحت القوى الميكانيكية</div>', 960, 900, s('k6') + 0.2, s('k7') - 0.1);
+  D.card('<div style="font:600 36px Plex;color:#10213F;max-width:1300px;white-space:normal">صلابة البرغي: مقاومته للتشوّه الدائم، والخدش، والانحناء، والاختراق… تحت القوى الميكانيكية</div>', 960, 900, s('k6') + 0.2, s('k7') - 0.1);
   const bar = K.displayBolt({ d: 10, L: 70, stamp: null }); bar.rotation.z = Math.PI / 2; bar.position.set(40, 20, 60); D.add(bar);
   D.on(t => {
     row.forEach((h, i) => { popIn(h, t, s('k1') + 0.2 + i * 0.08, s('k4') - 0.2); h.rotation.y = 0.3 * Math.sin(t * 0.5 + i); });

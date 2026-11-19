@@ -122,7 +122,7 @@ export default function caliper({ cue, duration }) {
   const lblRoot = el('lbl', 'قاع السن', { borderColor: '#5C6E8A', color: '#5C6E8A' });
   const ring1 = svgEl('circle', { fill: 'none', stroke: '#FF7A00', 'stroke-width': 5 });
   const ring2 = svgEl('circle', { fill: 'none', stroke: '#FF7A00', 'stroke-width': 5 });
-  const lblJaws = el('lbl', 'فكّا الفرجار');
+  const lblJaws = el('lbl', 'فكّا القدمة');
   const ldJaws = leader();
   const lcdFrame = svgEl('polygon', { fill: 'none', stroke: '#FF7A00', 'stroke-width': 7, 'stroke-linejoin': 'round' });
   const lblLcd = el('lbl track', 'القراءة');
@@ -170,7 +170,7 @@ export default function caliper({ cue, duration }) {
   K.castShadows(gauge);
   const xMark = el('big', '<div style="font:700 120px PlexLatin;color:#D93A3A">✗</div>');
   const okMark = el('big', '<div style="font:700 120px PlexLatin;color:#1E9E5A">✓</div>');
-  const noForce = el('lbl', 'بدون غصب', { borderColor: '#D93A3A', color: '#D93A3A' });
+  const noForce = el('lbl', 'دون إجبار', { borderColor: '#D93A3A', color: '#D93A3A' });
   const conv = el('card', `<table style="border-collapse:collapse;direction:ltr">${[['11/32', '0.34375'], ['3/8', '0.375'], ['13/32', '0.40625']].map((r, i) => `<tr style="${i === 1 ? 'background:#FFE8D2;outline:4px solid #FF7A00' : ''}"><td style="padding:8px 30px;font:700 46px PlexLatin;color:${i === 1 ? '#B54F00' : '#10213F'}">${r[0]}"</td><td style="padding:8px 30px;font:600 46px PlexLatin;color:#5C6E8A">${r[1]}</td></tr>`).join('')}</table>
      <div style="font:600 34px Plex;color:#10213F;margin-top:12px"><span class="ltr" style="font-family:PlexLatin">0.37</span> ← نختار القيمة الأعلى مباشرة: <span class="ltr" style="font-family:PlexLatin;color:#B54F00">3/8"</span></div>`);
 

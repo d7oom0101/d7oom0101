@@ -40,7 +40,7 @@ export default function nuts(ctx) {
   const m1 = K.hexNut({ d: 12, s: 19, m: 10 }); const m2 = K.hexNut({ d: 12, s: 19, m: 10 });
   const mark = (n, dot) => { const d = K.decal(19, (c, w, h) => { c.strokeStyle = '#4A5563'; c.fillStyle = '#4A5563'; c.lineWidth = w * 0.05; c.lineCap = 'round'; for (const a of dot ? [0] : [0, Math.PI / 3 * 2]) { c.beginPath(); c.moveTo(w / 2 + Math.cos(a - 1.57) * w * 0.32, h / 2 + Math.sin(a - 1.57) * h * 0.32); c.lineTo(w / 2 + Math.cos(a - 1.57) * w * 0.44, h / 2 + Math.sin(a - 1.57) * h * 0.44); c.stroke(); } if (dot) { c.beginPath(); c.arc(w / 2 + Math.cos(0.52) * w * 0.38, h / 2 + Math.sin(0.52) * h * 0.38, w * 0.04, 0, 7); c.fill(); } }); d.position.y = 10.05; n.add(d); };
   mark(m1, false); mark(m2, true); m1.position.x = 30; m2.position.x = -30; D.add(m1); D.add(m2);
-  D.label('خطّين', [m1, v3(0, 10, 0)], [0, -140], s('n6') + 0.8, 1e9, { track: true });
+  D.label('خطّان', [m1, v3(0, 10, 0)], [0, -140], s('n6') + 0.8, 1e9, { track: true });
   D.label('خط ونقطة', [m2, v3(0, 10, 0)], [0, -140], s('n6') + 1.8, 1e9, { track: true });
   D.card('<div style="font:600 36px Plex;color:#10213F">المطلوب: الفئة <span style="font-family:PlexLatin">5</span> أو <span style="font-family:PlexLatin">8</span></div>', 960, 880, s('n6') + 3.0, 1e9);
   D.on(t => {

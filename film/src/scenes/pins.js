@@ -4,15 +4,15 @@ import { stage, popIn } from '../director.js';
 import { v3, seg, win, easeOut, easeIO, lerp, castAll, trackify, paint, cutaway } from '../engine.js';
 import * as K from '../kit.js';
 
-const PINS = [['pr2', () => K.cotterPin({ L: 45 }), 'بن شق', 'Split pin', ['دبوس محور', 'غير دقيق']],
-  ['pr3', () => K.rClip({ L: 45 }), 'بن منحني', 'Pined (R) pin', ['يسمح بالفك السريع', 'قابل لإعادة الاستخدام']],
-  ['pr4', () => K.dowel({ d: 6, L: 45 }), 'بن مسطح / مجرد', 'Flat / Stripped pin', ['يضمن التحديد', 'اتصال سهل']],
-  ['pr5', () => K.rollPin({ d: 7, L: 45 }), 'بن مرن', 'Elastic pin', ['غير دقيق', 'مقاومة جيدة للاهتزاز والقص', 'يمكن إدخال دبوس آخر بداخله']],
-  ['pr6', () => K.taperPin({ d: 7, L: 45 }), 'بن مدبّب', 'Taper pin', ['مقاومة جيدة للاهتزازات', 'محاذاة وتثبيت دقيق (صلابة عالية)']]];
+const PINS = [['pr2', () => K.cotterPin({ L: 45 }), 'دبوس مشقوق', 'Split pin', ['محور ارتكاز', 'غير دقيق']],
+  ['pr3', () => K.rClip({ L: 45 }), 'دبوس منحنٍ', 'Pined (R) pin', ['يسمح بالفك السريع', 'قابل لإعادة الاستخدام']],
+  ['pr4', () => K.dowel({ d: 6, L: 45 }), 'دبوس مسطّح', 'Flat / Stripped pin', ['يضمن التحديد', 'اتصال سهل']],
+  ['pr5', () => K.rollPin({ d: 7, L: 45 }), 'دبوس مرن', 'Elastic pin', ['غير دقيق', 'مقاومة جيدة للاهتزاز والقص', 'يمكن إدخال دبوس آخر بداخله']],
+  ['pr6', () => K.taperPin({ d: 7, L: 45 }), 'دبوس مخروطي', 'Taper pin', ['مقاومة جيدة للاهتزازات', 'محاذاة وتثبيت دقيق (صلابة عالية)']]];
 export default function pins(ctx) {
   const D = stage(ctx, { target: v3(0, 20, 0), size: 160 });
   const s = D.s, e = D.e;
-  D.header('أنواع البنوز والبرشام', 'Pins & rivets');
+  D.header('أنواع المسامير الدبوسية والبرشام', 'Pins & rivets');
   D.chip([31, 32]);
   const row = PINS.map(([cue, mk, ar, en, props], i) => {
     const o = mk(); o.position.set(96 - i * 48, 0, 0); castAll(o); D.add(o);
@@ -31,9 +31,9 @@ export default function pins(ctx) {
   const bulb = new THREE.Mesh(new THREE.SphereGeometry(3.6, 24, 16), K.M.stainless()); bulb.scale.y = 0.6; R.add(bulb);
   castAll(R); cutaway(R, new THREE.Vector3(0, 0, -1), 220);
   const gun = new THREE.Group(); const gb = new THREE.Mesh(new THREE.CylinderGeometry(5, 5, 40, 24), paint(0x24364F, 0.4)); gb.position.y = 20; gun.add(gb); const gh = new THREE.Mesh(new THREE.BoxGeometry(8, 60, 10), paint(0xE0B020, 0.4)); gh.position.set(0, 50, 0); gh.rotation.z = 0.5; gun.add(gh); R.add(gun);
-  D.label('زردية البرشام', [gun, v3(0, 30, 0)], [220, -100], s('pr8') - 0.2, 1e9);
+  D.label('زرّادية البرشام', [gun, v3(0, 30, 0)], [220, -100], s('pr8') - 0.2, 1e9);
   D.label('البرشام', v3(0, 13, 220), [-220, -90], s('pr7') + 0.3, 1e9, { track: true });
-  D.card('<div style="font:600 36px Plex">تجميع <b>صلب</b> و<b>غير قابل للإزالة</b></div>', 960, 900, s('pr7') + 0.6, 1e9);
+  D.card('<div style="font:600 36px Plex">تجميع <b>صلب</b> <b>غير قابل للفك</b></div>', 960, 900, s('pr7') + 0.6, 1e9);
   D.on(t => {
     row.forEach((o, i) => { o.visible = t < s('pr7') - 0.2; popIn(o, t, s('pr1') + i * 0.12, s('pr7') - 0.2); });
     inner.visible = t > s('pr5') + 3.0 && t < s('pr6') - 0.1; inner.position.y = lerp(60, 0, seg(t, s('pr5') + 3.0, s('pr5') + 4.0, easeOut));

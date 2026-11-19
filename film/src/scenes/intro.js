@@ -27,16 +27,16 @@ export default function intro(ctx) {
 
   // --- benefit cards (i3/i4)
   const ben = (icon, txt) => `<div style="display:flex;align-items:center;gap:18px"><div style="font-size:52px">${icon}</div><div style="font:600 36px Plex;color:#10213F;text-align:right">${txt}</div></div>`;
-  D.card(ben('⏱', 'استبدال أسرع وقت الفحص والصيانة'), 1450, 330, s('i3') + 0.1, s('i5') - 0.2);
+  D.card(ben('⏱', 'استبدال أسرع أثناء الفحص والصيانة'), 1450, 330, s('i3') + 0.1, s('i5') - 0.2);
   D.card(ben('📈', 'إنتاجية أعلى للخط'), 1450, 470, s('i3') + 1.8, s('i5') - 0.2);
   D.card(ben('💲', 'تكاليف وهدر أقل'), 1450, 610, s('i4') + 0.1, s('i5') - 0.2);
-  D.card(ben('✔', 'أخطاء وعيوب أقل، بدون عمالة ماهرة جدًا'), 1450, 750, s('i4') + 2.0, s('i5') - 0.2);
+  D.card(ben('✔', 'أخطاء وعيوب أقل، دون الحاجة إلى عمالة عالية المهارة'), 1450, 750, s('i4') + 2.0, s('i5') - 0.2);
 
   // --- objectives (i5-i8)
   const obj = (n, txt, x, y, t0) => D.card(`<div style="display:flex;align-items:center;gap:20px"><div style="width:62px;height:62px;border-radius:50%;background:#003DA5;color:#fff;font:700 36px PlexLatin;display:flex;align-items:center;justify-content:center">${n}</div><div style="font:600 36px Plex;color:#10213F">${txt}</div></div>`, x, y, t0, s('i9') - 0.2);
   D.card('<div style="font:700 56px Plex;color:#003DA5">مخرجات التدريب</div>', 960, 140, s('i5'), s('i9') - 0.2, 'big');
   obj(1, 'تمييز أنواع ودرجات المثبّتات', 1300, 300, s('i6'));
-  obj(2, 'التعامل الصحيح مع البراغي والوشرات والصواميل', 620, 300, s('i6') + 2.6);
+  obj(2, 'التعامل الصحيح مع البراغي والحلقات والصواميل', 620, 300, s('i6') + 2.6);
   obj(3, 'تطبيق التحكّم المرئي', 1300, 450, s('i7'));
   obj(4, 'استخدام مفتاح العزم', 620, 450, s('i7') + 1.8);
   const pct = (big, txt, x, t0) => {
@@ -50,7 +50,7 @@ export default function intro(ctx) {
   const row = new THREE.Group(); row.position.set(0, 0, 160); row.scale.setScalar(2.4); D.add(row);
   const items = [
     [K.circlip({ r: 10 }), 'أنواع المرابط'], [K.displayBolt({ d: 10, L: 30, stamp: { text: '8.8' } }), 'البراغي'],
-    [K.washer({ id: 10.5, od: 24, t: 2.5 }), 'الوشرات'], [K.hexNut({}), 'الصواميل'],
+    [K.washer({ id: 10.5, od: 24, t: 2.5 }), 'الحلقات'], [K.hexNut({}), 'الصواميل'],
     [K.torqueWrench({ L: 120 }), 'مفتاح العزم'], [K.displayBolt({ d: 10, L: 30, mat: K.M.rust() }), 'العيوب'],
   ];
   const t9 = s('i9'), d9 = e('i9') - t9;
@@ -74,7 +74,7 @@ export default function intro(ctx) {
     light.material.color.set(t > s('i1') + 0.6 && t < s('i2') + 0.4 ? 0xD93A3A : 0x1E9E5A);
     // i2: wave of highlight over all bolts
     bolts.forEach((b, i) => { if (b !== loose) trackify(b.userData.bolt.userData.mat, win(t, s('i2') + 1.2 + i * 0.25, s('i2') + 2.6 + i * 0.25, 0.3)); });
-    // gentle explode on i2 ("تمسك القطع مع بعض")
+    // gentle explode on i2 ("تربط القطع معًا")
     const ex = win(t, s('i2') + 0.3, s('i3') - 0.2, 0.8);
     arm.position.y = 150 + ex * 40; up.position.y = 96 + ex * 18;
     for (let i = 4; i < 8; i++) bolts[i].position.y = 159 - 6 + ex * 75 + (i === 5 ? loose.position.y - 153 : 0);

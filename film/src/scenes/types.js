@@ -28,13 +28,13 @@ export default function types(ctx) {
   const glow = new THREE.PointLight(0x66aaff, 0, 80); glow.position.set(9, 10, 70); P.add(glow);
   castAll(P);
 
-  const q = D.card('<div style="font:700 50px Plex;color:#10213F">تقدر تفكّها بدون ما تكسر شي؟</div>', 960, 170, s('t1') + 0.2, s('t2') + 0.3);
+  const q = D.card('<div style="font:700 50px Plex;color:#10213F">هل يمكن فكّها دون كسر شيء؟</div>', 960, 170, s('t1') + 0.2, s('t2') + 0.3);
   D.card('<div style="font:700 44px Plex;color:#1E9E5A">✓ قابلة للفك والتركيب</div>', 1420, 860, s('t2'), 1e9);
   D.card('<div style="font:700 44px Plex;color:#D93A3A">✗ غير قابلة للفك</div>', 500, 860, s('t3'), 1e9);
   const L = (txt, obj, off, t0) => D.label(txt, obj, off, t0, 1e9, { style: { fontSize: '30px' } });
   const dt2 = (e('t2') - s('t2')) / 5;
   L('برغي وصامولة', [joint.g, v3(0, 30, 0)], [0, -110], s('t2') + dt2 * 1.4);
-  L('بنز', [cot, v3(0, 40, 0)], [80, -60], s('t2') + dt2 * 2.4);
+  L('مسامير دبوسية', [cot, v3(0, 40, 0)], [80, -60], s('t2') + dt2 * 2.4);
   L('حلقة تثبيت', ring, [-60, 80], s('t2') + dt2 * 3.0);
   L('مسمار خشب', [wood, v3(0, 40, 0)], [70, 70], s('t2') + dt2 * 3.8);
   const dt3 = (e('t3') - s('t3')) / 4;

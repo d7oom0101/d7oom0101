@@ -27,11 +27,11 @@ export default function tools(ctx) {
   const mSp = K.openSpanner({ size: 13, L: 110, label: '13 mm' }); const iSp = K.openSpanner({ size: 12.7, L: 110, label: '1/2"' });
   mSp.position.set(0, 0, 220); iSp.position.set(0, 0, 260); D.add(mSp); D.add(iSp); castAll(mSp); castAll(iSp);
   D.label('متري: المقاس بالرقم', [mSp, v3(55, 4, 0)], [140, -110], s('tl3') + 0.6, s('tl4') - 0.2, { track: t => t < s('tl3') + 2.6 });
-  D.label('قياسي: المقاس ككسر', [iSp, v3(55, 4, 0)], [140, 110], s('tl3') + 2.6, s('tl4') - 0.2, { track: t => t > s('tl3') + 2.6 });
+  D.label('إنشي: المقاس ككسر', [iSp, v3(55, 4, 0)], [140, 110], s('tl3') + 2.6, s('tl4') - 0.2, { track: t => t > s('tl3') + 2.6 });
   const hb = K.displayBolt({ d: 9.5, L: 20, s: 14.3, k: 6 }); hb.position.set(-80, 0, 240); D.add(hb);
   const hbHead = hb.userData.bolt.getObjectByName('head'); hbHead.material = hbHead.material.clone();
   const wrong = K.openSpanner({ size: 15, L: 90, label: '15 mm' }); D.add(wrong); castAll(wrong);
-  D.label('فك المفتاح لازم يطابق رأس البرغي', [hb, v3(0, 26, 0)], [-260, -140], s('tl4') + 2.4, s('tl5') - 0.2, { track: true });
+  D.label('فكّ المفتاح يجب أن يطابق رأس البرغي', [hb, v3(0, 26, 0)], [-260, -140], s('tl4') + 2.4, s('tl5') - 0.2, { track: true });
   // tl5 allen in socket, tl6 no pipe extensions
   const sock = K.socketScrew({ d: 10, L: 24 }); sock.position.set(120, 0, 240); D.add(sock); castAll(sock);
   const key8 = K.allenKey({ s: 8, L1: 60, L2: 28 }); D.add(key8); castAll(key8);

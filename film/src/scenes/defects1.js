@@ -17,20 +17,20 @@ export default function defects1(ctx) {
   const R = compareScene(ctx, {
     header: 'العيوب: التطبيق والطريقة', en: 'Defects — application & method', slides: [50, 51, 52, 53],
     beats: [
-      { cue: 'd1', title: 'نفس النوع… ومستوية مع السطح', build: () => [
+      { cue: 'd1', title: 'النوع نفسه… ومستوية مع السطح', build: () => [
         [plateWith([{ x: -35, type: 'hex' }, { x: 0, type: 'socket' }, { x: 35, type: 'hex', proud: 6 }]), false],
         [plateWith([{ x: -35, type: 'hex' }, { x: 0, type: 'hex' }, { x: 35, type: 'hex' }]), true]] },
-      { cue: 'd2', title: 'صامولتين مجنّحتين: شد وفك سريع بدون أدوات', build: () => [
+      { cue: 'd2', title: 'صامولتان مجنّحتان: شدّ وفكّ سريعان دون أدوات', build: () => [
         [plateWith([{ x: -30, type: 'wing' }, { x: 30, type: 'nutHex' }]), false],
         [plateWith([{ x: -30, type: 'wing' }, { x: 30, type: 'wing' }]), true]] },
-      { cue: 'd3', title: 'مكان معرّض للتآكل → ستانلس', build: () => [
+      { cue: 'd3', title: 'مكان معرّض للتآكل → فولاذ مقاوم للصدأ', build: () => [
         [plateWith([{ x: -30, type: 'hex', mat: K.M.rust() }, { x: 30, type: 'hex', mat: K.M.rust() }], { color: 0x7FA0B8 }), false],
         [plateWith([{ x: -30, type: 'hex', mat: K.M.stainless(), stamp: { text: 'A4-70', font: 90 } }, { x: 30, type: 'hex', mat: K.M.stainless(), stamp: { text: 'A4-70', font: 90 } }], { color: 0x7FA0B8 }), true]],
         cam: [v3(0, 230, 340), v3(0, 10, 0)] },
-      { cue: 'd4', title: 'فئتان مختلفتان في نفس الوصلة: الأضعف يضعّف الترابط', build: () => [
+      { cue: 'd4', title: 'فئتان مختلفتان في الوصلة نفسها: الأضعف يضعّف الترابط', build: () => [
         [plateWith([{ x: -30, type: 'hex', stamp: { text: '8.8' } }, { x: 30, type: 'hex', stamp: { text: '12.9', font: 100 } }]), false, 0]],
         cam: [v3(0, 120, 130), v3(0, 15, 0)] },
-      { cue: 'd5', title: 'البرغي للأعلى، الصامولة فوق… وكلها بنفس الاتجاه', build: () => {
+      { cue: 'd5', title: 'البرغي للأعلى، الصامولة في الأعلى… وجميعها في الاتجاه نفسه', build: () => {
         const mk = (flip) => { const g = new THREE.Group(); const pl = K.plate({ w: 120, dpt: 60, t: 10, holes: [[-35, 0, 5.5], [0, 0, 5.5], [35, 0, 5.5]] }); g.add(pl);
           [-35, 0, 35].forEach((x, i) => { const up = flip[i]; const b = K.displayBolt({ d: 10, L: 28, stamp: null }); const n = K.hexNut({ d: 10, s: 17, m: 8 });
             if (up) { b.rotation.x = Math.PI; b.position.set(x, 28, 0); n.position.set(x, 10, 0); }      // head below, nut on top

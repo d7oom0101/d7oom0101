@@ -23,7 +23,7 @@ export default function sequence(ctx) {
   };
   const A = mk(0);
   const nums = Array.from({ length: N }, (_, i) => el('big', `<div style="width:54px;height:54px;border-radius:50%;background:#003DA5;color:#fff;font:700 30px PlexLatin;display:flex;align-items:center;justify-content:center">${i + 1}</div>`));
-  const wrongTag = D.card('<div style="font:700 40px Plex;color:#D93A3A">✗ برغي برغي للآخر: حمل نقطي… والفلنجة تميل</div>', 960, 920, s('sq2') + 0.4, s('sq3') - 0.2);
+  const wrongTag = D.card('<div style="font:700 40px Plex;color:#D93A3A">✗ برغي تلو الآخر حتى النهاية: حمل نقطي… فتميل الشفة</div>', 960, 920, s('sq2') + 0.4, s('sq3') - 0.2);
   const rightTag = D.card('<div style="font:700 40px Plex;color:#1E9E5A">✓ على مراحل، بنمط متقاطع (نجمة)</div>', 960, 920, s('sq3') + 0.6, 1e9);
   const lines = []; // star path drawn in svg
   const svg = document.getElementById('svg');

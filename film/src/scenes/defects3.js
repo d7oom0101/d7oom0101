@@ -14,7 +14,7 @@ export default function defects3(ctx) {
         const clean = plateWith([{ x: -25, type: 'hex', washer: true }, { x: 25, type: 'nutHex' }], { w: 100, dpt: 60 });
         return [[dirty, false], [clean, true]];
       }, cam: [v3(0, 190, 400), v3(0, 8, 0)] },
-      { cue: 'd13', title: 'كل العناصر في الوصلة متطابقة: نفس المادة والشكل', build: () => [
+      { cue: 'd13', title: 'كل العناصر في الوصلة متطابقة: المادة نفسها والشكل نفسه', build: () => [
         [plateWith([{ x: -30, z: -15, type: 'hex', stamp: { text: '8.8' } }, { x: 30, z: -15, type: 'socket' }, { x: 0, z: 20, type: 'hex', mat: K.M.brass() }], { w: 110, dpt: 80 }), false],
         [plateWith([{ x: -30, z: -15, type: 'hex', stamp: { text: '8.8' } }, { x: 30, z: -15, type: 'hex', stamp: { text: '8.8' } }, { x: 0, z: 20, type: 'hex', stamp: { text: '8.8' } }], { w: 110, dpt: 80 }), true]],
         cam: [v3(0, 250, 350), v3(0, 5, 0)] },

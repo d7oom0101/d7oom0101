@@ -29,7 +29,7 @@ export default function defects2(ctx) {
         const loose = plateWith([{ x: 0, type: 'hex', proud: 4 }], { w: 70, dpt: 50 }); const tight = plateWith([{ x: 0, type: 'hex' }], { w: 70, dpt: 50 });
         return [[loose, false], [tight, true]];
       }, update: (t, [loose]) => { loose.children[1].rotation.y = Math.sin(t * 3) * 0.15; }, cam: [v3(0, 90, 320), v3(0, 12, 0)] },
-      { cue: 'd10', title: 'السن التالف لازم يتغيّر', build: () => {
+      { cue: 'd10', title: 'السنّ التالف يجب استبداله', build: () => {
         const good = new THREE.Mesh(threadGeometry({ dMajor: 12, pitch: 1.75, y0: 0, y1: 50 }), K.M.zinc());
         const badG = threadGeometry({ dMajor: 12, pitch: 1.75, y0: 0, y1: 50 }); const p = badG.attributes.position;
         for (let i = 0; i < p.count; i++) { const y = p.getY(i), x = p.getX(i), z = p.getZ(i); const dent = Math.exp(-Math.pow((y - 28) / 5, 2)) * (x > 0 ? 0.25 : 0); p.setX(i, x * (1 - dent)); p.setZ(i, z * (1 - dent * 0.6)); }
