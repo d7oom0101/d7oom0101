@@ -17,7 +17,10 @@ The narrator is a separate track (`build/narration_processed.wav`), and every an
 Allow the service's host in the session's network and save its API key as a credential, without pasting the key in chat.
 Then replace the `tts()` function in `tools/build_audio.py` with the service call and run the same pipeline as above.
 
-## Current narration: ElevenLabs — Raed Alotaibi (Saudi, Najdi)
+## Current narration: ElevenLabs — Mazen Lawand (Deep & Professional), model eleven_v3
+Earlier version: Raed Alotaibi (Saudi, Najdi), eleven_multilingual_v2 — kept in `assets/vo_raed/` (build with `VO_SET=vo_raed`).
+
+### Raed (previous)
 - Voice ID `lBgZD85rJJVmqahd7yzK`, model `eleven_multilingual_v2`, chosen by the client from five samples (`preview/voices/`).
 - Generate: `python3 tools/eleven_vo.py` → `build/vo/<id>.wav` (only missing lines; `--only id1,id2 --force` regenerates a line after editing its text).
   The key is injected by the session proxy; elsewhere set `ELEVEN_API_KEY`.

@@ -10,10 +10,10 @@ import argparse, json, os, re, subprocess, time, urllib.request, urllib.error
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 VO = os.path.join(ROOT, "build", "vo"); os.makedirs(VO, exist_ok=True)
-VOICE = os.environ.get("ELEVEN_VOICE", "lBgZD85rJJVmqahd7yzK")   # Raed Alotaibi — Saudi Najdi narrator
-MODEL = os.environ.get("ELEVEN_MODEL", "eleven_multilingual_v2")
+VOICE = os.environ.get("ELEVEN_VOICE", "rPNcQ53R703tTmtue1AT")   # Mazen Lawand — Deep & Professional (chosen); Raed = lBgZD85rJJVmqahd7yzK
+MODEL = os.environ.get("ELEVEN_MODEL", "eleven_v3")
 KEY = os.environ.get("ELEVEN_API_KEY", "proxy-injected")
-SETTINGS = {"stability": 0.55, "similarity_boost": 0.8, "style": 0.1, "use_speaker_boost": True, "speed": 1.0}
+SETTINGS = {"stability": 0.5, "similarity_boost": 0.8} if MODEL == "eleven_v3" else {"stability": 0.55, "similarity_boost": 0.8, "style": 0.1, "use_speaker_boost": True, "speed": 1.0}
 
 ap = argparse.ArgumentParser(); ap.add_argument("--only"); ap.add_argument("--force", action="store_true")
 args = ap.parse_args()
@@ -34,6 +34,7 @@ for i, ln in enumerate(lines):
     body = {"text": spoken(ln), "model_id": MODEL, "voice_settings": SETTINGS,
             "previous_text": spoken(lines[i - 1]) if i else None,
             "next_text": spoken(lines[i + 1]) if i + 1 < len(lines) else None}
+    if MODEL == "eleven_v3": body.pop("previous_text"); body.pop("next_text")   # v3 has no request stitching
     req = urllib.request.Request(f"https://api.elevenlabs.io/v1/text-to-speech/{VOICE}?output_format=mp3_44100_128",
                                  data=json.dumps(body).encode(), headers={"xi-api-key": KEY, "Content-Type": "application/json"})
     for attempt in range(4):
