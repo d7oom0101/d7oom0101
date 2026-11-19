@@ -93,7 +93,7 @@ def make(name, dur):
 
 def master_voice(src, dst):
     # gentle clean-up chain: rumble cut, warmth, presence, de-ess, soft compression
-    af = ("highpass=f=75,equalizer=f=170:t=q:w=1.0:g=1.8,equalizer=f=3200:t=q:w=1.2:g=2.2,"
+    af = ("highpass=f=75,afftdn=nr=10:nf=-50:tn=1,equalizer=f=170:t=q:w=1.0:g=1.8,equalizer=f=3200:t=q:w=1.2:g=2.2,"
           "equalizer=f=7200:t=q:w=2:g=-2.5,acompressor=threshold=-20dB:ratio=2.5:attack=8:release=120:makeup=2")
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", src, "-af", af, "-ar", str(SR), dst], check=True)
 
@@ -108,8 +108,7 @@ if __name__ == "__main__":
     v = np.pad(v, (0, max(0, n - len(v))))[:n]
     fx = np.zeros(n, dtype=np.float32)
     events = json.load(open(os.path.join(B, "sfx.json")))
-    # a soft workshop bed under the whole film so the viewer stays "in the plant"
-    events.insert(0, {"t": 0, "name": "factory_bed", "gain": 1.0, "dur": timeline["duration"]})
+    # (the continuous factory_bed under the whole film was removed: viewers heard it as hiss/wind)
     for e in events:
         a = make(e["name"], e.get("dur", 1.0)).astype(np.float32) * e.get("gain", 0.5)
         i = int(e["t"] * SR); a = a[: max(0, n - i)]; fx[i:i + len(a)] += a
